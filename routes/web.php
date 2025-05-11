@@ -13,7 +13,7 @@ use App\Http\Controllers\ElectionPositionController;
 
 Route::resource('departments', DepartmentController::class);
 
-    Route::view('/', 'homepage')->name('homepage');
+    Route::view('/', view: 'homepage')->name('homepage');
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::get('/signup', [StudentRegistrationController::class, 'index'])->name('show.signup');
     Route::post('/signup', [StudentRegistrationController::class, 'store'])->name('signup-submit');
@@ -90,7 +90,7 @@ Route::resource('departments', DepartmentController::class);
     //Position controller
     Route::post('/positions/{election_id}', [ElectionPositionController::class, 'store'])->name('save');
 
-
+    
 
 });
 

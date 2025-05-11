@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('election_id');
             $table->unsignedBigInteger('position_id');
             $table->text('description')->nullable();
-
+            
             $table->foreign('election_id')->references('election_id')->on('elections')->onDelete('cascade');
             $table->foreign('position_id')->references('position_id')->on('positions')->onDelete('cascade');
             $table->timestamps();
