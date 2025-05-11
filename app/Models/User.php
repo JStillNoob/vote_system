@@ -87,4 +87,5 @@ class User extends Authenticatable
         return $this->belongsTo(StudentRegistration::class, 'student_id', 'student_id');
     }
     
+
 }

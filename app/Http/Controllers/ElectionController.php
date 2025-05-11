@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Election;
 use Illuminate\Http\Request;
 use App\Models\Department;
+use App\Models\ElectionPosition;
+use App\Models\Position;
 
 class ElectionController extends Controller
 {
@@ -15,6 +17,8 @@ class ElectionController extends Controller
     {
         $elections = Election::with(['department'])->get();
         $departments = Department::all();
+
+       
     
         return view('department-admin.elections', compact('elections', 'departments'));
         // Fixed the typo in the variable name
@@ -90,6 +94,20 @@ class ElectionController extends Controller
      */
     public function destroy(Election $elections)
     {
-        //
+        
+    }
+
+    public function manageElection($election_id)
+    {
+        // Load the election with its positions
+        $elections = Election::with(['election_positions.position'])->findOrFail($election_id);
+        
+        // If you still need all election positions separately (you might not need this)
+        $electionPositions = ElectionPosition::with('position')
+                              ->where('election_id', $election_id)
+                              ->get();
+        $positions = Position::all();
+        
+        return view('department-admin.manageElection', compact('elections', 'electionPositions', 'positions'));
     }
 }

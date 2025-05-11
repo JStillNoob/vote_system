@@ -91,7 +91,7 @@
                         <td>{{$election->end_date ?? 'N/A'}}</td>
                         <td>{{$election->department->department_name ?? 'N/A'}}</td>
                         <td>
-                            <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{{ route('manage-election', $election->election_id) }}" class="btn btn-info btn-sm">Manage</a>
                             <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
                         </td>
                     </tr>

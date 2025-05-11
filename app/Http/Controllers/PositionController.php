@@ -28,7 +28,15 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255|unique:positions,position_name',
+        ]);
+
+        Position::create([
+            'title' => $request->title,
+        ]);
+
+        return redirect()->back()->with('success', 'Position created successfully');
     }
 
     /**

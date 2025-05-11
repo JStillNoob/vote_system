@@ -32,11 +32,23 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
-
+    
         if (Auth::attempt($credentials)) {
-            return redirect()->route('departments.index')->with('success', 'Login successful');
+            $request->session()->regenerate();
+            
+            // Get the freshly authenticated user
+            $user = Auth::user();
+            
+            // Check userType_id after successful authentication
+            if($user->userType_id == 1) {
+                return redirect()->route('election')->with('success', 'Login successful');
+            } elseif($user->userType_id == 2) {
+                return redirect()->route('departments.index')->with('success', 'Login successful');
+            } elseif($user->userType_id == 3) {
+                return redirect()->route('view-election')->with('success', 'Login successful');
+            }
         }
-
+    
         throw ValidationException::withMessages([
             'email' => ['The provided credentials do not match our records.'],
         ]);
@@ -46,6 +58,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        $request->session()->forget('user');
         return redirect('/login')->with('success', 'Logout successful');
     }
 }

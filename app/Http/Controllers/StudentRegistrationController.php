@@ -47,7 +47,7 @@ class StudentRegistrationController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the incoming data
+        
         $validated = $request->validate([
             'student_id' => 'required|numeric|unique:student_registrations,student_id',
             'FirstName' => 'required|string|max:255',
@@ -70,6 +70,8 @@ class StudentRegistrationController extends Controller
         ], 201);
         
     }
+
+    
 
     /**
      * Display the specified resource.
