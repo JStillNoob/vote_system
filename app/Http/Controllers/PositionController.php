@@ -12,7 +12,8 @@ class PositionController extends Controller
      */
     public function index()
     {
-        //
+        $positions = Position::all();
+        return view('admin.positions', compact('positions'));
     }
 
     /**
@@ -29,7 +30,7 @@ class PositionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255|unique:positions,position_name',
+            'title' => 'required|string|max:255|unique:positions,title',
         ]);
 
         Position::create([
@@ -60,7 +61,15 @@ class PositionController extends Controller
      */
     public function update(Request $request, Position $position)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255|unique:positions,title,' . $position->position_id . ',position_id',
+        ]);
+
+        $position->update([
+            'title' => $request->title,
+        ]);
+
+        return redirect()->back()->with('success', 'Position updated successfully');
     }
 
     /**
@@ -68,6 +77,7 @@ class PositionController extends Controller
      */
     public function destroy(Position $position)
     {
-        //
+        $position->delete();
+        return redirect()->back()->with('success', 'Position deleted successfully');
     }
 }

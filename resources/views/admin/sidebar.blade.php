@@ -25,6 +25,7 @@
             </div>
 
         <li><a class="active" href={{  route('departments.index')}}><i class="fas fa-building"></i> Manage Department</a></li>
+        <li><a class="active-sample" href="{{ route('positions.index') }}"><i class="fas fa-briefcase"></i> Manage Positions</a></li>
         <li><a class="active-position" href={{ route('view-users')}}><i class="fas fa-user-edit"></i> Users</a></li>
         <li><a class="active-election" href={{ 'election-admin' }}><i class="fas fa-vote-yea"></i> Election</a></li>
 

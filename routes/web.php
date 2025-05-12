@@ -10,7 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ElectionController;
 use App\Http\Controllers\StudentRegistrationController;
 use App\Http\Controllers\ElectionPositionController;
-
+use App\Http\Controllers\PositionController;
 Route::resource('departments', DepartmentController::class);
 
     Route::view('/', view: 'homepage')->name('homepage');
@@ -45,8 +45,20 @@ Route::resource('departments', DepartmentController::class);
         Route::get('/manage-users', [UserController::class, 'index'])->name('view-users');
         Route::post('/create-users', [UserController::class, 'store'])->name('create-user');
 
+        Route::get('/positions', [PositionController::class, 'index'])->name('positions.index');
 
+// Store new position (from Add modal)
+        Route::post('/positions', [PositionController::class, 'store'])->name('positions.store');
 
+        // Update a position (from Edit modal)
+        Route::put('/positions/{position}', [PositionController::class, 'update'])->name('positions.update');
+
+        // Delete a position
+        Route::delete('/positions/{position}', [PositionController::class, 'destroy'])->name('positions.destroy');
+
+        // Optional: Show one position (if you decide to use it)
+        Route::get('/positions/{position}', [PositionController::class, 'show'])->name('positions.show');
+        
     });
 
         
@@ -89,9 +101,9 @@ Route::resource('departments', DepartmentController::class);
 
     //Position controller
     Route::post('/positions/{election_id}', [ElectionPositionController::class, 'store'])->name('save');
-
-    
-
+    Route::get('/candidates/by-position', [CandidateController::class, 'candidatesByPosition'])->name('candidates.byPosition');
+    Route::put('/candidates/{candidate}/approve', [CandidateController::class, 'approve'])->name('candidates.approve');
+    Route::put('/candidates/{candidate}/disapprove', [CandidateController::class, 'disapprove'])->name('candidates.disapprove');
 });
 
 

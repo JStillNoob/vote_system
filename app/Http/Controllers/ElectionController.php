@@ -42,8 +42,9 @@ class ElectionController extends Controller
         'start_date' => 'required|date|after_or_equal:now',
         'end_date' => 'required|date|after:start_date',
         'department_id' => 'required|exists:departments,department_id',
-        'is_active' => 'sometimes|boolean' // Optional if you want to set active status
+        'is_active' => 'sometimes|boolean'
     ]);
+    
 
     try {
         Election::create([
@@ -51,7 +52,7 @@ class ElectionController extends Controller
             'start_date' => $validatedData['start_date'],
             'end_date' => $validatedData['end_date'],
             'department_id' => $validatedData['department_id'],
-            'is_active' => $validatedData['is_active'] ?? false // Default to false if not provided
+            'is_active' => $validatedData['is_active'] ?? false 
         ]);
 
         return redirect()->route('view-election')
