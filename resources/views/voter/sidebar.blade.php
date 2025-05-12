@@ -7,8 +7,8 @@
     <ul>
         <img src="{{ asset('storage/schoolIcon.png') }}" alt="Logo" class="sidebar-logo">
 
-        <li><a class="active" href={{ route('election') }}><i class="fas fa-vote-yea"></i> Election</a></li>
-        <li><a class="active-manageAcc" href={{ route('showElections') }}><i class="fas fa-user-edit"></i> Manage Acount</a></li>
+        <li><a class="active" href="{{ route('election') }}"><i class="fas fa-vote-yea"></i> Election</a></li>
+        <li><a class="active-manageAcc" href="{{ route('showElections') }}"><i class="fas fa-user-edit"></i> Manage Acount</a></li>
 
 
         <div class="sidebar-bottom">

@@ -111,4 +111,17 @@ class ElectionController extends Controller
         
         return view('department-admin.manageElection', compact('elections', 'electionPositions', 'positions'));
     }
+
+    public function showElectionByDepartment()
+    {
+      
+        $user = auth()->user()->load('department');
+        
+       
+        $elections = Election::where('department_id', $user->department_id)
+            ->with('department') 
+            ->get();
+        
+        return view('voter.election', compact('elections', 'users'));
+    }
 }

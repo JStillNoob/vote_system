@@ -157,5 +157,20 @@ class CandidateController extends Controller
 
         return redirect()->back()->with('success', 'Candidate disapproved successfully.');
     }
+
+    public function showElectionsList(Request $request)
+    {
+        $user = $request->user();
+        
+        
+        $elections = Election::where('department_id', $user->department_id)
+            ->with('election_positions.position') 
+            ->get();
+        
+        return view('voter.election', [
+            'elections' => $elections,
+            'user' => $user
+        ]);
+    }
     
 }

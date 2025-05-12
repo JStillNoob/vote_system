@@ -93,7 +93,9 @@
                         <td>{{$election->department->department_name ?? 'N/A'}}</td>
                         <td>
                             <a href="{{ route('manage-election', $election->election_id) }}" class="btn btn-info btn-sm">Manage</a>
+                            <a href="{{ route('view-results', $election->election_id) }}" class="btn btn-success btn-sm mb-1">View Results</a>
                             <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                           
                         </td>
                     </tr>
                     @endforeach

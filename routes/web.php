@@ -11,6 +11,7 @@ use App\Http\Controllers\ElectionController;
 use App\Http\Controllers\StudentRegistrationController;
 use App\Http\Controllers\ElectionPositionController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\VoteController;
 Route::resource('departments', DepartmentController::class);
 
     Route::view('/', view: 'homepage')->name('homepage');
@@ -63,22 +64,31 @@ Route::resource('departments', DepartmentController::class);
 
         
         
-    Route::middleware(['auth', 'userType:1'])->group(function () {
+        Route::middleware(['auth', 'userType:1'])->group(function () {
 
-            // Voter Routes
-    Route::view('/voter-election', 'voter.election')->name('election');
-    Route::view('/voter-candidates', 'voter.manageAcc')->name('manageAcc-voter');
+                // Voter Routes
+        Route::get('/voter-election', [CandidateController::class, 'showElectionsList'])->name('election');
+        Route::view('/voter-candidates', 'voter.manageAcc')->name('manageAcc-voter');
 
-    //apply Candidate 
-    Route::get('/election', [CandidateController::class, 'showElections'])->name('showElections');
-    Route::get('/applyCandidate/{election}',[CandidateController::class, 'manageCandidacy'])->name('manageCandidacy');
-    Route::post('/candidates/{electionPositionId}', [CandidateController::class, 'store'])->name('candidates.store');
+        //apply Candidate 
+        Route::get('/election', [CandidateController::class, 'showElections'])->name('showElections');
+        Route::get('/applyCandidate/{election}',[CandidateController::class, 'manageCandidacy'])->name('manageCandidacy');
+        Route::post('/candidates/{electionPositionId}', [CandidateController::class, 'store'])->name('candidates.store');
+
+          // Show vote page
+    Route::get('/vote-election/{election}', [VoteController::class, 'showElectionForm'])->name('vote-election');
+    Route::post('/submit-vote', [VoteController::class, 'submitVote'])->name('submit-vote');
+                
+        // Voter Election
+       //Route::get('/election', [ElectionController::class, 'showElectionByDepartment'])->name('electionbydepartment');
+
 
 
 
     });
 
     Route::middleware(['auth', 'userType:3'])->group(function () {
+        Route::get('/results/{electionId}', [VoteController::class, 'showResults'])->name('view-results');
 
     //Election controller
     Route::get('/elections', [ElectionController::class, 'index'])->name('view-election');

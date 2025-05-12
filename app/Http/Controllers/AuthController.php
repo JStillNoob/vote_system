@@ -41,7 +41,7 @@ class AuthController extends Controller
             
             // Check userType_id after successful authentication
             if($user->userType_id == 1) {
-                return redirect()->route('election')->with('success', 'Login successful');
+                return redirect()->route('showElections')->with('success', 'Login successful');
             } elseif($user->userType_id == 2) {
                 return redirect()->route('departments.index')->with('success', 'Login successful');
             } elseif($user->userType_id == 3) {

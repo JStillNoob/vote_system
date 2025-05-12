@@ -13,3 +13,4 @@
     <div class="container-fluid" style="margin-right: 250px;">
         <p class="navbar-brand" href="#" status='disable'>Manage Account</p>
     </div>
+</nav>

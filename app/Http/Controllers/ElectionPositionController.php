@@ -74,4 +74,5 @@ class ElectionPositionController extends Controller
     {
         //
     }
+
 }
