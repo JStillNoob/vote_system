@@ -37,7 +37,7 @@ class VoteController extends Controller
             );
         }
 
-        return redirect()->view('voter.election')->with('success', 'Your votes have been submitted.');
+        return redirect()->route('election')->with('success', 'Your votes have been submitted.');
     }
 
     public function showResults($electionId)
@@ -52,5 +52,23 @@ class VoteController extends Controller
         ])->where('election_id', $electionId)->get();
     
         return view('department-admin.view-result', compact('positions', 'election'));
+    }
+
+    public function showElectionsList()
+    {
+        $userId = Auth::id();
+        $elections = Election::with('department')
+            ->get()
+            ->map(function ($election) use ($userId) {
+                // Check if user has voted in this election
+                $hasVoted = Vote::whereHas('electionPosition', function ($query) use ($election) {
+                    $query->where('election_positions.election_id', $election->election_id);
+                })->where('voter_id', $userId)->exists();
+                
+                $election->has_voted = $hasVoted;
+                return $election;
+            });
+
+        return view('voter.election', compact('elections'));
     }
 }

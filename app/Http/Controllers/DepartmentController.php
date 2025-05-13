@@ -93,6 +93,6 @@ class DepartmentController extends Controller
         $department->delete();
 
         
-        return redirect()->back()->with('success', 'Post deleted successfully!'); 
+        return redirect()->back()->with('success', 'Department deleted successfully!'); 
     }
 }

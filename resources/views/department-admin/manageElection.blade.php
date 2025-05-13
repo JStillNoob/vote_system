@@ -106,12 +106,20 @@
         </div>
     </div>
 </div>
-@if(session('success'))
-<script>
-    window.addEventListener('load', function () {
-        var toastEl = document.getElementById('approvalToast');
-        var toast = new bootstrap.Toast(toastEl);
-        toast.show();
-    });
-</script>
-@endif
+@extends('layout.app') <!-- Assuming you use a layout -->
+
+
+
+@push('scripts')
+    @if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: "{{ session('success') }}",
+                icon: "success",
+                draggable: true
+            });
+        });
+    </script>
+    @endif
+@endpush

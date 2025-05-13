@@ -14,34 +14,83 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.3/css/buttons.dataTables.min.css">
 
 
+@vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/department-admin.css'])
+@include('department-admin.sidebar')
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.3/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
+
+<!-- Custom Style -->
 <style>
     li a.active-elections, li a:hover, .logout-button:hover {
-    background-color: #ffffff;
-    color: #1A73E8;
+        background-color: #ffffff;
+        color: #1A73E8;
     }
-  
 
-    .row{
+    .row {
         margin-top: 10px;
-      
     }
-    .text{
 
+    .text {
         margin-top: 5px;
         font: bold;
     }
 
-
-
     .dataTables_filter input {
-    border-radius: 20px !important; /* Make it rounded */
-    border: 1px solid #ccc;
-    padding: 8px 15px;
-    outline: none;
-    width: 200px;
-    transition: all 0.3s ease;
-    margin-bottom: 10px;
-}
+        border-radius: 20px !important;
+        border: 1px solid #ccc;
+        padding: 8px 15px;
+        outline: none;
+        width: 200px;
+        transition: all 0.3s ease;
+        margin-bottom: 10px;
+    }
+
+    /* Clean Table Styles */
+    #UsersTable {
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        width: 100%;
+    }
+
+    #UsersTable thead th {
+        background-color: #f8f9fa;
+        border-bottom: 2px solid #dee2e6;
+        padding: 12px 15px;
+        font-weight: 600;
+        color: #343a40;
+    }
+
+    #UsersTable tbody tr {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    #UsersTable tbody td {
+        padding: 12px 15px;
+        vertical-align: middle;
+        border-top: none;
+        background-color: #ffffff;
+    }
+
+    #UsersTable tbody tr td:first-child {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    #UsersTable tbody tr td:last-child {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    #UsersTable .btn-sm {
+        padding: 5px 10px;
+        border-radius: 6px;
+    }
+</style>
     
 
 </style>
@@ -138,3 +187,23 @@
     });
 </script>
 @endif
+
+@extends('layout.app') <!-- Assuming you use a layout -->
+
+@section('content')
+    <!-- Your page content -->
+@endsection
+
+@push('scripts')
+    @if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: "{{ session('success') }}",
+                icon: "success",
+                draggable: true
+            });
+        });
+    </script>
+    @endif
+@endpush

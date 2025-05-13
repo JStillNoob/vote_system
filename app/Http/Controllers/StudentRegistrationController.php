@@ -65,10 +65,9 @@ class StudentRegistrationController extends Controller
     
         // Return a response
         return redirect()->back()->with([
-            'message' => 'Student registered successfully.',
+            'message' => 'Registration Successful!',
             'student' => $student
-        ], 201);
-        
+        ]);
     }
 
     

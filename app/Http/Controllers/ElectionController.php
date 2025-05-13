@@ -42,7 +42,7 @@ class ElectionController extends Controller
         'start_date' => 'required|date|after_or_equal:now',
         'end_date' => 'required|date|after:start_date',
         'department_id' => 'required|exists:departments,department_id',
-        'is_active' => 'sometimes|boolean'
+       
     ]);
     
 
@@ -52,7 +52,7 @@ class ElectionController extends Controller
             'start_date' => $validatedData['start_date'],
             'end_date' => $validatedData['end_date'],
             'department_id' => $validatedData['department_id'],
-            'is_active' => $validatedData['is_active'] ?? false 
+            
         ]);
 
         return redirect()->route('view-election')

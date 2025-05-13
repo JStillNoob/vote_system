@@ -67,9 +67,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        
-                        <!-- Active Status (hidden by default) -->
-                        <input type="hidden" name="is_active" value="0">
                     </div>
                     
                     <div class="modal-footer mt-4">

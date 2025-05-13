@@ -92,6 +92,25 @@
     </div>
 @endif
 
+@extends('layout.app') <!-- Assuming you use a layout -->
+
+
+
+@push('scripts')
+    @if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: "{{ session('success') }}",
+                icon: "success",
+                draggable: true
+            });
+        });
+    </script>
+    @endif
+@endpush
+
+
 
 
 @endauth

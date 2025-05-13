@@ -22,13 +22,15 @@ class Vote extends Model
         return $this->belongsTo(User::class, 'voter_id', 'user_id');
     }
 
-    public function electionPosition()
-    {
-        return $this->belongsTo(ElectionPosition::class, 'election_id', 'election_id');
-    }
+   
 
     public function candidate()
     {
         return $this->belongsTo(Candidate::class, 'candidate_id', 'candidate_id');
     }
+    public function electionPosition()
+    {
+        return $this->belongsTo(ElectionPosition::class, 'election_position_id', 'ElectionPosition_id');
+    }
+    
 }

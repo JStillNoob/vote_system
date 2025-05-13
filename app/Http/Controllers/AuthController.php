@@ -35,19 +35,19 @@ class AuthController extends Controller
     
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            
-            // Get the freshly authenticated user
             $user = Auth::user();
             
-            // Check userType_id after successful authentication
+            $welcomeMessage = "Welcome , " . $user->FirstName . "!"; 
+            
             if($user->userType_id == 1) {
-                return redirect()->route('showElections')->with('success', 'Login successful');
+                return redirect()->route('showElections')->with('success', $welcomeMessage);
             } elseif($user->userType_id == 2) {
-                return redirect()->route('departments.index')->with('success', 'Login successful');
+                return redirect()->route('departments.index')->with('success', $welcomeMessage);
             } elseif($user->userType_id == 3) {
-                return redirect()->route('view-election')->with('success', 'Login successful');
+                return redirect()->route('view-election')->with('success', $welcomeMessage);
             }
         }
+        
     
         throw ValidationException::withMessages([
             'email' => ['The provided credentials do not match our records.'],
@@ -59,6 +59,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         $request->session()->forget('user');
-        return redirect('/login')->with('success', 'Logout successful');
+        return redirect('/')->with('success', 'Logout successful');
     }
 }

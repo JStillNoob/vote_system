@@ -76,7 +76,11 @@
                             <td>{{ $election->end_date ?? 'N/A' }}</td>
                             <td>{{ $election->department->department_name ?? 'N/A' }}</td>
                             <td>
-                                <a href="{{ route('vote-election', $election->election_id) }}" class="btn btn-info btn-sm">Vote</a>
+                                @if($election->has_voted)
+                                    <button class="btn btn-secondary btn-sm" disabled>Already Voted</button>
+                                @else
+                                    <a href="{{ route('vote-election', $election->election_id) }}" class="btn btn-info btn-sm">Vote</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -100,3 +104,17 @@
         });
     });
 </script>
+@extends('layout.app')
+@push('scripts')
+    @if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: "{{ session('success') }}",
+                icon: "success",
+                draggable: true
+            });
+        });
+    </script>
+    @endif
+@endpush

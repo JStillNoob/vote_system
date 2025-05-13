@@ -12,7 +12,7 @@
 
 <nav>
     <ul>
-        <a class="active" href='#'><img src="{{ asset('storage/schoolIcon.png') }}" alt="Logo" class="sidebar-logo"></a>
+        <a class="active" href='#'><img src="{{ asset('images/SALFORD.png') }}" alt="Logo" class="sidebar-logo"></a>
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-2 pb-2 mb-2 d-flex">

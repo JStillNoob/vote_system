@@ -14,8 +14,8 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\VoteController;
 Route::resource('departments', DepartmentController::class);
 
-    Route::view('/', view: 'homepage')->name('homepage');
-    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    
+    Route::get('/', [AuthController::class, 'showLogin'])->name('login');
     Route::get('/signup', [StudentRegistrationController::class, 'index'])->name('show.signup');
     Route::post('/signup', [StudentRegistrationController::class, 'store'])->name('signup-submit');
 
@@ -67,7 +67,7 @@ Route::resource('departments', DepartmentController::class);
         Route::middleware(['auth', 'userType:1'])->group(function () {
 
                 // Voter Routes
-        Route::get('/voter-election', [CandidateController::class, 'showElectionsList'])->name('election');
+        Route::get('/voter-election', [VoteController::class, 'showElectionsList'])->name('election');
         Route::view('/voter-candidates', 'voter.manageAcc')->name('manageAcc-voter');
 
         //apply Candidate 
@@ -91,29 +91,29 @@ Route::resource('departments', DepartmentController::class);
         Route::get('/results/{electionId}', [VoteController::class, 'showResults'])->name('view-results');
 
     //Election controller
-    Route::get('/elections', [ElectionController::class, 'index'])->name('view-election');
-    Route::post('/elections', [ElectionController::class, 'store'])->name('create-election');
-    Route::get('/elections/{election}', [ElectionController::class, 'manageElection'])->name('manage-election');
+        Route::get('/elections', [ElectionController::class, 'index'])->name('view-election');
+        Route::post('/elections', [ElectionController::class, 'store'])->name('create-election');
+        Route::get('/elections/{election}', [ElectionController::class, 'manageElection'])->name('manage-election');
 
-    
+        
 
-    // Department Admin Routes
-    Route::view('/voters', 'department-admin.voters')->name('voters-DeptAdmin');
-    Route::view('/candidates', 'department-admin.candidates')->name('candidates-DeptAdmin');
-    Route::view('/DeptAdmin-elections', 'department-admin.elections')->name('elections-DeptAdmin');
-    Route::view('/DeptAdmin-ManageAcc', 'department-admin.manageAccount')->name('manageAcc-DeptAdmin');
-    Route::get('/voters-only', [UserController::class, 'showVoterOnly'])->name('voters-only');
+        // Department Admin Routes
+        Route::view('/voters', 'department-admin.voters')->name('voters-DeptAdmin');
+        Route::view('/candidates', 'department-admin.candidates')->name('candidates-DeptAdmin');
+        Route::view('/DeptAdmin-elections', 'department-admin.elections')->name('elections-DeptAdmin');
+        Route::view('/DeptAdmin-ManageAcc', 'department-admin.manageAccount')->name('manageAcc-DeptAdmin');
+        Route::get('/voters-only', [UserController::class, 'showVoterOnly'])->name('voters-only');
 
-    //Student registration
-    Route::delete('/approveVoters/{student_id}', [StudentRegistrationController::class, 'destroy'])->name('declineVoter');
-    Route::get('/approveVoters', [StudentRegistrationController::class, 'showAllNeedsApproval'])->name('approveVoters');
-    Route::post('/approveVoter/{student_id}', [StudentRegistrationController::class, 'approve'])->name('approveUser');
+        //Student registration
+        Route::delete('/approveVoters/{student_id}', [StudentRegistrationController::class, 'destroy'])->name('declineVoter');
+        Route::get('/approveVoters', [StudentRegistrationController::class, 'showAllNeedsApproval'])->name('approveVoters');
+        Route::post('/approveVoter/{student_id}', [StudentRegistrationController::class, 'approve'])->name('approveUser');
 
-    //Position controller
-    Route::post('/positions/{election_id}', [ElectionPositionController::class, 'store'])->name('save');
-    Route::get('/candidates/by-position', [CandidateController::class, 'candidatesByPosition'])->name('candidates.byPosition');
-    Route::put('/candidates/{candidate}/approve', [CandidateController::class, 'approve'])->name('candidates.approve');
-    Route::put('/candidates/{candidate}/disapprove', [CandidateController::class, 'disapprove'])->name('candidates.disapprove');
+        //Position controller
+        Route::post('/positions/{election_id}', [ElectionPositionController::class, 'store'])->name('save');
+        Route::get('/candidates/by-position', [CandidateController::class, 'candidatesByPosition'])->name('candidates.byPosition');
+        Route::put('/candidates/{candidate}/approve', [CandidateController::class, 'approve'])->name('candidates.approve');
+        Route::put('/candidates/{candidate}/disapprove', [CandidateController::class, 'disapprove'])->name('candidates.disapprove');
 });
 
 
@@ -136,7 +136,7 @@ Route::resource('departments', DepartmentController::class);
 
 
     Route::view('/election-admin', 'admin.election-admin')->name('election-admin');
-    
+
 
 
 

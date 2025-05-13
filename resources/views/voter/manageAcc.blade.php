@@ -65,9 +65,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="d-flex justify-content-end gap-2">
-                            <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" data-bs-target="#addElectionModal" >
-                                <i class="fas fa-plus me-1"></i>Create Election
-                            </button>
+                           
                         </div>
                     </div>
                 </div>
@@ -83,24 +81,48 @@
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Department</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ( $elections as $election)
+                        @foreach ($elections as $election)
                         <tr>
-                            <td>{{$election->title ?? 'N/A'}}</td>
-                            <td>{{$election->start_date ?? 'N/A'}}</td>
-                            <td>{{$election->end_date ?? 'N/A'}}</td>
-                            <td>{{$election->department->department_name ?? 'N/A'}}</td>
+                            <td>{{ $election->title ?? 'N/A' }}</td>
+                            <td>{{ $election->start_date ?? 'N/A' }}</td>
+                            <td>{{ $election->end_date ?? 'N/A' }}</td>
+                            <td>{{ $election->department->department_name ?? 'N/A' }}</td>
+                           
                             <td>
-                                <a href={{ route('manageCandidacy',$election->election_id) }} class="btn btn-info btn-sm">Manage Candidacy</a>
-                                <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                                @php
+                                    $now = now(); 
+                    
+                                    
+                                    $start = \Carbon\Carbon::parse($election->start_date);
+                                    $end = \Carbon\Carbon::parse($election->end_date);
+                                   
+                                @endphp
+                            
+                                @if($now >= $end)
+                                Completed
+                                @elseif($now >= $start && $now <= $end)
+                                 Ongoing
+                                @else
+                                Upcoming
+                                @endif
+                            </td>
+                            <td>
+                                @if($now >= $end || $now >= $start && $now <= $end )
+                                    <button class="btn btn-secondary btn-sm" disabled title="This election has already ended">Manage Candidacy</button>
+                                @else
+                                    <a href="{{ route('manageCandidacy',$election->election_id) }}" class="btn btn-info btn-sm">Manage Candidacy</a>
+                                @endif
                             </td>
                         </tr>
-                        @endforeach
+                    @endforeach
              
-                    </tbody>
+                        </tbody>
+                    </table>
                 </table>
             </div>
         </div>
@@ -117,3 +139,22 @@
         });
     </script>
     
+    @extends('layout.app') <!-- Assuming you use a layout -->
+
+@section('content')
+    <!-- Your page content -->
+@endsection
+
+@push('scripts')
+    @if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: "{{ session('success') }}",
+                icon: "success",
+                draggable: true
+            });
+        });
+    </script>
+    @endif
+@endpush

@@ -13,7 +13,6 @@ class Election extends Model
         'title',
         'start_date',
         'end_date',
-        'is_active',
         'department_id',
     ];
 

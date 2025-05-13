@@ -2,171 +2,317 @@
 
 @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/homepage.css'])
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
 <style>
+    html, body {
+        overflow: hidden;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: #f8fafc;
+    }
+
     .login-page {
         display: flex;
-        height: 100vh;
+        min-height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    .left-side {
+    .login-container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .login-left {
         flex: 1;
-        background-color: #1A253D; /* Same as your dark blue */
+        background: #fff;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-    }
-
-    /* Insert the below style here */
-    .left-side img {
-        max-width: 500px; /* Increased the max-width to make the logo bigger */
-        margin-bottom: 1rem;
-    }
-
-    .left-side h2 {
-        color: #ffffff;
-        margin: 0;
-    }
-
-    .left-side p {
-        color: #cccccc;
-        font-size: 0.9rem;
-    }
-
-    .right-side {
-        flex: 1;
-        background-color: #f4f4f4;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: flex-start;
         padding: 2rem;
+        padding-top: 7rem;
     }
 
-    .login-card {
-        background-color: #ffffff;
-        padding: 2rem;
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        width: 100%;
-        max-width: 400px;
+    .login-logo {
+        max-width: 300px;
+        margin-bottom: 1.5rem;
+        margin-top: 6rem;
     }
 
-    .login-title {
-        text-align: center;
+    .university-title {
         font-size: 2rem;
-        margin-bottom: 0.5rem;
+        font-weight: bold;
         color: #1A253D;
+        margin-bottom: 0.5rem;
+        margin-top: 2rem;
     }
 
-    .login-subtitle {
-        text-align: center;
-        color: #666;
+    .university-tagline {
+        color: #506183;
+        font-size: 1.1rem;
         margin-bottom: 2rem;
     }
 
+    .login-right {
+        flex: 1;
+        background: #1A253D;
+        background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.01) 0 2px, transparent 2px 40px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 2rem;
+        padding-top: 5rem;
+    }
+
+    .login-card {
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        padding: 2.5rem 2rem;
+        width: 100%;
+        max-width: 400px;
+        z-index: 1;
+    }
+
+    .login-title {
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+        color: #1A253D;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+    .login-subtitle {
+        color: #64748b;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+    
     .input-group {
-        position: relative;
         margin-bottom: 1.5rem;
+        position: relative;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #475569;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 0.3px;
+    }
+
+    .input-wrapper {
+        position: relative;
+        width: 100%; /* Ensure the wrapper takes the full width of the input */
     }
 
     .input-icon {
         position: absolute;
-        left: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #666;
-        z-index: 2;
+        top: 50%; /* Center the icon vertically */
+        left: 15px; /* Position the icon inside the input box */
+        transform: translateY(-50%); /* Adjust for vertical centering */
+        color: #94a3b8;
+        font-size: 1rem;
+        pointer-events: none; /* Prevent the icon from blocking input clicks */
+        z-index: 1; /* Ensure the icon appears above the input field */
     }
 
     .form-input {
-        width: 100%;
-        padding: 0.75rem 0.75rem 0.75rem 40px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 16px;
+        padding-left: 45px; /* Add enough padding to make space for the icon */
+        width: 100%; /* Ensure the input field takes full width */
+        box-sizing: border-box; /* Include padding in width calculation */
+        height: 48px; /* Ensure consistent height */
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+        background-color: #f8fafc;
+        color: #1A253D;
     }
 
     .form-input:focus {
-        border-color: #1A253D;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
         outline: none;
+        background-color: #ffffff;
+    }
+
+    .form-input::placeholder {
+        color: #94a3b8;
     }
 
     .login-btn {
         width: 100%;
-        background-color: #1A253D;
+        background: linear-gradient(135deg, #1A253D 0%, #2d3b5a 100%);
         color: white;
         border: none;
-        padding: 0.75rem;
-        font-size: 16px;
-        border-radius: 6px;
+        padding: 1rem;
+        font-size: 1.1rem;
+        border-radius: 12px;
         cursor: pointer;
-        margin-top: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+        box-shadow: 
+            0 4px 6px rgba(26, 37, 61, 0.2),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
     }
 
     .login-btn:hover {
-        background-color: #16203a;
+        transform: translateY(-2px);
+        box-shadow: 
+            0 6px 8px rgba(26, 37, 61, 0.3),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .login-btn:active {
+        transform: translateY(0);
     }
 
     .register-link {
-        color: #1A253D;
+        color: #3b82f6;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+
+    .register-link:hover {
+        color: #2563eb;
         text-decoration: underline;
     }
 
+    .error-list {
+        background: rgba(254, 226, 226, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-top: 1.5rem;
+        border-left: 4px solid #ef4444;
+        box-shadow: 0 4px 6px rgba(239, 68, 68, 0.1);
+    }
+
+    .error-item {
+        color: #b91c1c;
+        font-size: 0.875rem;
+        margin: 0.375rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .error-item::before {
+        content: '⚠️';
+    }
+
+    @keyframes gradientMove {
+        0% { transform: translate(0, 0); }
+        50% { transform: translate(-50%, -50%); }
+        100% { transform: translate(0, 0); }
+    }
+
+    @keyframes backgroundMove {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(-50%, -50%); }
+    }
 </style>
 
 
-    
-
-    
-</style>
 <div class="login-page">
-    <div class="left-side">
-        <img src="{{ asset('storage/schoolIcon.png') }}" alt="Logo">
+    <div class="login-left">
+        <img src="{{ asset('images/SALFORD.png') }}" alt="Logo" class="login-logo">
+        <h2 class="university-title">INOVATECH UNIVERSITY</h2>
+        <p class="university-tagline">Shaping the future one moment at a time.</p>
     </div>
 
-    <div class="right-side">
+    <div class="login-right">
         <div class="login-card">
-            <h1 class="login-title">Log in</h1>
-            <p class="login-subtitle">Sign in to your account</p>
+            <h1 class="login-title">Welcome Back!</h1>
+            <p class="login-subtitle">Sign in to access your account</p>
 
             <form action="{{ route('login.submit') }}" method="POST" class="needs-validation" novalidate>
                 @csrf
 
                 <div class="input-group">
-                    <span class="input-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
-                        </svg>
-                    </span>
-                    <input type="email" name="email" class="form-input" placeholder="Email" required>
-                    <div class="invalid-feedback">Please enter your email.</div>
+                    <label for="email" class="form-label">Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i> <!-- Email icon -->
+                        <input type="email" name="email" id="email" class="form-input" placeholder="your.email@example.com" required>
+                    </div>
+                    <div id="email-error" class="text-danger" style="font-size: 0.875rem; margin-top: 0.5rem;"></div>
+                    <div class="invalid-feedback">Please enter a valid email address.</div>
                 </div>
 
                 <div class="input-group">
-                    <span class="input-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
-                        </svg>
-                    </span>
-                    <input type="password" name="password" class="form-input" placeholder="Password" required>
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i> <!-- Password icon -->
+                        <input type="password" name="password" id="password" class="form-input" placeholder="••••••••" required>
+                    </div>
+                    <div id="password-error" class="text-danger" style="font-size: 0.875rem; margin-top: 0.5rem;"></div>
                     <div class="invalid-feedback">Please enter your password.</div>
                 </div>
 
-                <button type="submit" class="login-btn">Log In</button>
+                <button type="submit" class="login-btn">Sign In</button>
 
                 <p class="text-center mt-4">
                     Don't have an account?
-                    <a href="{{ route('show.signup') }}" class="register-link">Register</a>
+                    <a href="{{ route('show.signup') }}" class="register-link">Create Account</a>
                 </p>
 
                 @if ($errors->any())
-                    <ul class="px-4 py-2 bg-red-100">
+                    <div class="error-list">
                         @foreach ($errors->all() as $error)
-                            <li class="my-2 text-red-500">{{ $error }}</li>
+                            <p class="error-item">{{ $error }}</p>
                         @endforeach
-                    </ul>
+                    </div>
                 @endif
             </form>
         </div>
     </div>
 </div>
+
+<script>
+// Form validation script
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                let emailField = document.getElementById('email');
+                let passwordField = document.getElementById('password');
+                let emailError = document.getElementById('email-error');
+                let passwordError = document.getElementById('password-error');
+
+                // Reset error messages
+                emailError.textContent = '';
+                passwordError.textContent = '';
+
+                // Check if fields are empty
+                if (!emailField.value.trim()) {
+                    emailError.textContent = 'Email is required.';
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                if (!passwordField.value.trim()) {
+                    passwordError.textContent = 'Password is required.';
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+</script>
